@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+       
+<!--         Spring Security -->
+<!-- 	<security:http auto-config="true" use-expressions="true"> -->
+<!-- <security:intercept-url pattern="/admin" access="ROLE_ADMIN" /> --> 
+<!-- <security:intercept-url pattern="/user" access="ROLE_USER" /> --> 
+       
+<!--        <security:intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" /> -->
+<!--        <security:intercept-url pattern="/user**" access="hasRole('ROLE_USER')" /> -->
+		
+<!-- 		 access denied page --> 
+<!-- 		<security:access-denied-handler error-page="/403" /> -->
+       
+<!--        <security:form-login -->
+<!--            login-page="/loginUser" -->
+<!--            default-target-url="/"  -->
+<!--            authentication-failure-url="/loginUser?error" -->
+<!--            username-parameter="id" -->
+<!--            password-parameter="password" /> -->
+<!--        <security:logout logout-success-url="/loginUser?logout" /> -->
+       
+<!--        enable csrf protection -->
+<!-- 		<security:csrf/> -->
+		
+<!--    </security:http> -->
+ 
+<!-- 	<security:authentication-manager> -->
+<!--        <security:authentication-provider> -->
+<!--            <security:jdbc-user-service data-source-ref="dataSource" -->
+<!--                                        authorities-by-username-query="SELECT id, role from role WHERE id = ?" -->
+<!--                                        users-by-username-query="SELECT id,password,admin FROM user WHERE id = ?" /> -->
+<!--        </security:authentication-provider> -->
+<!--    </security:authentication-manager> -->
+   
+   
+   <!-- New Spring Security implementation -->
+   
+   <security:http auto-config="true">
+   	<security:intercept-url pattern="/admin" access="ROLE_ADMIN" />
+	<security:intercept-url pattern="/user" access="ROLE_USER" /> 
+	
+  	
+   	<security:form-login
+           login-page="/loginUser"
+           default-target-url="/" 
+           authentication-failure-url="/loginUser?error"
+           username-parameter="username"
+           password-parameter="password" />
+       <security:logout logout-success-url="/loginUser?logout" />
+       <!-- enable csrf protection -->
+<!-- 		<security:csrf/> -->
+    </security:http>
+    
+   <security:authentication-manager>
+   	<security:authentication-provider>
+   		<security:user-service>
+   			<security:user name="admin" password="admin" authorities="ROLE_ADMIN" />
+   			<security:user name="Rahul" password="123" authorities="ROLE_USER" /> 
+   			<security:user name="Vaibhav" password="123" authorities="ROLE_USER" /> 
+   			<security:user name="Raj" password="123" authorities="ROLE_USER" /> 
+   		</security:user-service>
+   	</security:authentication-provider>
+   </security:authentication-manager>
+   
+    
+ </beans>
